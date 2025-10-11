@@ -31,5 +31,14 @@ urlpatterns = [
     path("dept/login/", views.department_login, name="department_login"),
     path("dept/logout/", views.department_logout, name="department_logout"),
     path("dept/dashboard/", views.department_dashboard, name="department_dashboard"),
-
+    path("batch/create/", views.create_batch, name="create_batch"),
+    
+    path("api/students/", views.get_students_same_year, name="get_students_same_year"),
+    path('guides/', views.guide_list, name='guide_list'),
+    path('request-guide/<int:guide_id>/', views.request_guide, name='request_guide'),
+    path('guide/dashboard/', views.guide_dashboard, name='guide_dashboard'),
+    path('guide/request/<int:req_id>/<str:action>/', views.handle_request, name='handle_request'),
+    
 ]
+
+

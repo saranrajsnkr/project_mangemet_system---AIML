@@ -30,15 +30,28 @@ class ForceLogoutOnCompanyPathsMiddleware:
 
         return self.get_response(request)
 
+from django.contrib import messages
+from django.contrib.auth import logout
+from django.shortcuts import redirect
+from internship.models import dept_member  # <-- import your model (change app name if needed)
+
+
+
 class DomainRestrictMiddleware:
     def __init__(self, get_response):
         self.get_response = get_response
 
     def __call__(self, request):
         if request.user.is_authenticated:
-            email = request.user.email
+            user = request.user
+            email = user.email or ""
+
+            # 🛑 Skip restriction for superusers or staff (admin panel users)
+            if user.is_superuser or user.is_staff:
+                return self.get_response(request)
+
+            # ✅ Step 1: Check email domain
             if not email.endswith("@veltech.edu.in"):
-                # Add a message with an explicit tag
                 messages.add_message(
                     request,
                     messages.ERROR,
@@ -47,8 +60,20 @@ class DomainRestrictMiddleware:
                 )
                 logout(request)
                 return redirect("custom_login")
-        return self.get_response(request) 
-    
+
+            # ✅ Step 2: Check if email exists in DeptMember
+            # if not dept_member.objects.filter(email__iexact=email).exists():
+            #     messages.add_message(
+            #         request,
+            #         messages.ERROR,
+            #         "VTU number not in the AIML department.",
+            #         extra_tags='domain_error'
+            #     )
+            #     logout(request)
+            #     return redirect("custom_login")
+
+        return self.get_response(request)
+
 
 # internship_portal/middleware.py
 from django.conf import settings

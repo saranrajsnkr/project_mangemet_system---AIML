@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Guide Requests</h2>
+{% for req in requests %}
+  <div>
+    <p><strong>{{ req.batch.batch_number }}</strong> — {{ req.batch.project_title }}</p>
+    <a href="{% url 'handle_request' req.id 'accept' %}" class="btn btn-success">Accept</a>
+    <a href="{% url 'handle_request' req.id 'decline' %}" class="btn btn-danger">Decline</a>
+  </div>
+{% empty %}
+  <p>No pending requests.</p>
+{% endfor %}
+{% endblock %}

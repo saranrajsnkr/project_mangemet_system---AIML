@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Available Guides</h2>
+{% for guide in guides %}
+  <div>
+    <h4>{{ guide.faculty.name }} ({{ guide.available_slots }} slots left)</h4>
+    {% if guide.available_slots > 0 %}
+      <a href="{% url 'request_guide' guide.id %}" class="btn btn-primary">Request Guide</a>
+    {% else %}
+      <p>No slots available</p>
+    {% endif %}
+  </div>
+{% endfor %}
+{% endblock %}
