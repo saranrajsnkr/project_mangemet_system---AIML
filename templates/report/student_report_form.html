@@ -1,0 +1,241 @@
+{% extends 'base.html' %}
+{% block content %}
+
+        <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--background);
+      color: var(--text-dark);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+{% comment %} :root {
+  --primary: #2563eb;
+  --primary-dark: #1d4ed8;
+  --secondary: #475569;
+  --accent: #0ea5e9;
+  --light: #f1f5f9;
+  --light-gray: #e2e8f0;
+  --success: #10b981;
+  --error: #ef4444;
+  --warning: #f59e0b;
+  --info: #3b82f6;
+  --border-radius: 12px;
+  --box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1),
+    0 8px 10px -6px rgba(0, 0, 0, 0.05);
+  --transition: all 0.3s ease;
+} {% endcomment %}
+
+{% comment %} body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background: white;
+  font-family: "Roboto", sans-serif;
+  display: flex;
+  justify-content: center;
+  {% comment %} align-items: flex-start;
+  padding-top: 2rem; {% endcomment %}
+
+/* Responsive Card */
+.custom-card {
+
+  background: white;
+  padding: 2rem 0.5rem;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  position: relative;
+  overflow: hidden;
+  margin: 1rem;
+}
+
+.custom-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: linear-gradient(to right, var(--primary), var(--accent));
+}
+
+h2 {
+  font-family: "Poppins", sans-serif;
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--primary-dark);
+  text-align: center;
+  margin-bottom: 2rem;
+  position: relative;
+  padding-bottom: 1rem;
+}
+
+h2::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 4px;
+  background: linear-gradient(to right, var(--primary), var(--accent));
+  border-radius: 2px;
+}
+
+/* Form */
+form {
+  width: 100%;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="file"],
+input[type="url"],
+input[class="form-control"],
+textarea,
+select {
+  width: 100%;
+  padding: 1.2rem 1.5rem;
+  border: 2px solid var(--light-gray);
+  border-radius: 8px;
+  font-size: 1.05rem;
+  color: var(--secondary);
+  transition: var(--transition);
+  background-color: #f8fafc;
+  margin-bottom: 1.5rem;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.15);
+  background-color: white;
+}
+
+/* Labels if using input groups */
+.input-group {
+  position: relative;
+  margin-bottom: 2rem;
+}
+
+.input-group label {
+  position: absolute;
+  top: -10px;
+  left: 15px;
+  background: white;
+  padding: 0 8px;
+  font-size: 0.9rem;
+  color: var(--primary);
+  font-weight: 500;
+  z-index: 1;
+}
+
+/* Submit Button */
+button[type="submit"] {
+  display: block;
+  width: 100%;
+  background: linear-gradient(to right, var(--primary), var(--accent));
+  color: white;
+  padding: 1.2rem;
+  border: none;
+  border-radius: 8px;
+  font-family: "Poppins", sans-serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow: 0 6px 15px rgba(37, 99, 235, 0.35);
+  margin-top: 1rem;
+}
+
+button[type="submit"]:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(37, 99, 235, 0.45);
+}
+
+button[type="submit"]:active {
+  transform: translateY(0);
+}
+
+/* File input button style */
+input[type="file"]::file-selector-button {
+  background: #edf2f7;
+  border: 1px solid #cbd5e0;
+  padding: 8px 16px;
+  border-radius: 4px;
+  margin-right: 15px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+input[type="file"]::file-selector-button:hover {
+  background: #e2e8f0;
+  cursor: pointer;
+}
+
+/* Footer */
+footer {
+  width: 100%;
+  background: #1e293b;
+  color: #cbd5e1;
+  padding: 2rem 0;
+  margin-top: auto;
+  text-align: center;
+}
+
+.footer-container {
+  padding: 0 2rem;
+  font-size: 1rem;
+}
+
+@media (max-width: 480px) {
+  h2 {
+    font-size: 1.6rem;
+  }
+
+  input,
+  textarea,
+  select,
+  button {
+    font-size: 1rem;
+    padding: 1rem 1.2rem;
+  }
+
+  .footer-container {
+    font-size: 0.9rem;
+  }
+}
+
+
+      /* Paste the entire <style> block from your previous template here with no changes */
+      {{ block.super }}
+    </style>
+
+<section class="body1">
+  <div class="custom-card">
+    <h2>Submit Your Report</h2>
+    <form method="POST">
+      {% csrf_token %}
+      {{ form.non_field_errors }}
+
+      <div>
+        {{ form.roll_number }}
+        {{ form.roll_number.errors }}
+      </div>
+
+      <div>
+        {{ form.report_status }}
+        {{ form.report_status.errors }}
+      </div>
+
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+</section>
+
+
+{% endblock %}

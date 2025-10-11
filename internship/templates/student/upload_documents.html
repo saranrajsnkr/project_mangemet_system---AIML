@@ -1,0 +1,205 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="upload-docs-container">
+
+<div class="container mt-4">
+  <h2>Upload Internship Documents <br> {{ student.name }} ({{ student.roll_number }})</h2>
+
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  {% if site_setting.active_approval_letter %}
+  <div>
+      {% if not student.approval_letter %}
+    <label for="approval_letter">Approval Letter:</label>
+    <input type="file" name="approval_letter" id="approval_letter" accept="application/pdf,image/*">
+        {% endif %}
+    {% if student.approval_letter %}
+        <span class="verified" style="color: green; font-weight: bold; text-align: center;"><i class="fa fa-circle-check"></i> Approval Letter</span>
+    {% endif %}
+  </div>
+  {% endif %}
+
+  {% if site_setting.active_undertaking_letter %}
+  <div>
+    {% if not student.undertaking_letter %}
+    <label for="undertaking_letter">Undertaking Letter:</label>
+    <input type="file" name="undertaking_letter" id="undertaking_letter" accept="application/pdf,image/*">
+        {% endif %}
+    {% if student.undertaking_letter %}
+        <span class="verified" style="color: green; font-weight: bold; text-align: center;"><i class="fa fa-circle-check"></i> Undertaking Letter</span>
+    {% endif %}
+  </div>
+  {% endif %}
+
+  {% if site_setting.active_bonafide_letter %}
+  <div>
+    {% if not student.bonafide_letter %}
+    <label for="bonafide_letter">Bonafide Letter:</label>
+    <input type="file" name="bonafide_letter" id="bonafide_letter" accept="application/pdf,image/*">
+        {% endif %}
+    {% if student.bonafide_letter %}
+        <span class="verified" style="color: green; font-weight: bold; text-align: center;"><i class="fa fa-circle-check"></i> Bonafide Letter</span>
+    {% endif %}
+  </div>
+  {% endif %}
+  {% if site_setting.active_approval_letter or site_setting.active_undertaking_letter or site_setting.active_bonafide_letter %}
+      <button type="submit" {% if student.approval_letter and student.undertaking_letter and student.bonafide_letter %} style="display: none;" {% endif %}>Click to Upload <i class="fa fa-cloud-upload"></i></button>
+    <div {% if student.approval_letter and student.undertaking_letter and student.bonafide_letter %} style="display: none;" {% endif %}>
+        <p style="font-size: 0.9rem; color: #555; text-align: center; font-weight: bold;">
+            Please upload all documents in PDF format only. Maximum file size is 2MB each.
+        </p>
+    </div>
+  {% endif %}
+    {% if not site_setting.active_approval_letter and not site_setting.active_undertaking_letter and not site_setting.active_bonafide_letter %}
+    <p style="font-size: 1.2rem; color: #555; text-align: center; font-weight: bold;">
+        No documents are required to upload now.
+    </p>
+    {% endif %}
+
+</form>
+<style>
+/* ==============================
+   Upload Internship Documents Page
+============================== */
+.upload-docs-container {
+  background: var(--surface);
+  padding: 2rem;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  max-width: 700px;
+  margin: 2rem auto;
+  animation: fadeUp 0.8s ease-out forwards;
+  overflow: hidden;
+}
+
+@keyframes fadeUp {
+  to { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; transform: translateY(20px); }
+}
+.upload-docs-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 6px;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+}
+
+.upload-docs-container h2 {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: var(--text-dark);
+  text-align: center;
+}
+
+.upload-docs-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.upload-docs-container label {
+  font-weight: 500;
+  color: var(--text-muted);
+  display: block;
+  margin-bottom: 0.4rem;
+}
+
+.upload-docs-container input[type="file"] {
+  width: 100%;
+  padding: 0.6rem;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: var(--radius);
+  background: #fff;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.upload-docs-container input[type="file"]:hover {
+  border-color: var(--primary);
+  box-shadow: 0 0 8px rgba(59, 130, 246, 0.2);
+}
+
+.upload-docs-container p a {
+  color: var(--primary);
+  font-weight: 500;
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.upload-docs-container p a:hover {
+  color: var(--primary-dark);
+  text-decoration: underline;
+}
+
+.upload-docs-container button {
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  color: #fff;
+  font-weight: 600;
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: var(--transition);
+  font-size: 1rem;
+}
+
+.upload-docs-container button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 25px rgba(37, 99, 235, 0.45);
+}
+
+.upload-docs-container button:active {
+  transform: translateY(1px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .upload-docs-container {
+    padding: 1.5rem;
+  }
+
+  .upload-docs-container h2 {
+    font-size: 1.3rem;
+  }
+}
+  input[type="file"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    background: #f8fafc;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+  }
+
+  input[type="file"]:hover,
+  input[type="file"]:focus {
+    border-color: #4299e1;
+    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.2);
+    outline: none;
+  }
+  /* File input custom styling */
+  input[type="file"]::file-selector-button {
+    background: #edf2f7;
+    border: 1px solid #cbd5e0;
+    padding: 8px 16px;
+    border-radius: 4px;
+    margin-right: 15px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+  }
+
+  input[type="file"]::file-selector-button:hover {
+    background: #e2e8f0;
+    cursor: pointer;
+  }
+
+</style>
+</div>
+</div>
+{% endblock %}

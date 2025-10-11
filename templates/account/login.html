@@ -1,0 +1,129 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Vel Tech Internship Portal - Login</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: linear-gradient(135deg, #d7d7d7, #f4f4f4);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0;
+    }
+
+    .login-card {
+      background: white;
+      border-radius: 15px;
+      padding: 40px;
+      width: 90%;
+      max-width: 700px;
+      text-align: center;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    }
+
+    /* ✅ Logos in one line, same size */
+    .logos {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap; /* wraps on smaller screens */
+      margin-bottom: 20px;
+    }
+
+    .logos img {
+      height: 70px;       /* ✅ fixed height */
+      width: auto;        /* keep aspect ratio */
+      object-fit: contain;
+    }
+
+    .portal-title {
+      margin-top: 10px;
+      font-weight: 700;
+      font-size: 20px;
+      color: #000;
+    }
+
+    .google-btn {
+      margin-top: 30px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 20px;
+      border: 1px solid #ddd;
+      border-radius: 25px;
+      font-size: 16px;
+      color: #333;
+      background: white;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      text-decoration: none;
+    }
+
+    .google-btn:hover {
+      background: #f1f1f1;
+    }
+
+    .google-btn img {
+      height: 20px;
+      margin-right: 10px;
+    }
+
+    .note {
+      margin-top: 20px;
+      font-size: 12px;
+      color: #555;
+      font-weight: 500;
+    }
+
+    /* ✅ Responsive */
+    @media (max-width: 600px) {
+      .logos img {
+        height: 50px; /* smaller logos on mobile */
+      }
+      .portal-title {
+        font-size: 16px;
+      }
+      .login-card {
+        padding: 25px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="login-card">
+    <!-- 🔹 Logos Row -->
+    <div class="logos">
+      <img src="{% static 'images/VELTECH.png' %}" alt="VelTech Logo">
+      <img src="{% static 'images/NIRF.png' %}" alt="Category 1">
+      <img src="{% static 'images/NAAC.png' %}" alt="NAAC">
+    </div>
+
+    <!-- 🔹 Portal Title -->
+    <div class="portal-title">VEL TECH INTERNSHIP PORTAL</div>
+
+    <!-- 🔹 Google Login -->
+    {% comment %} <a href="{% url "supp" %}" class="google-btn">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="Google logo"/>
+      Continue with Google
+    </a> {% endcomment %}
+    <a href="{% provider_login_url 'google' %}" class="google-btn">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="Google logo"/>
+      Continue with Google
+    </a>
+
+    <!-- 🔹 Note -->
+    <div class="note">USE VTU MAIL FOR LOG IN</div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<style>
+  .login-container {
+    background: var(--surface, rgba(255, 255, 255, 0.85));
+    backdrop-filter: blur(12px) saturate(180%);
+    padding: 2.5rem;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    margin: 2rem auto;
+    animation: fadeUp 0.8s ease forwards;
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .logos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 18px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+
+  .logos img {
+    height: 40px;
+    max-width: 100%;
+  }
+
+  .login-container h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: #0f172a;
+  }
+
+  .login-container h3 {
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+    color: #334155;
+    font-weight: 600;
+  }
+
+  .failure-box {
+    background: #fdecec;
+    border: 1px solid #b91010;
+    padding: 1.2rem;
+    border-radius: 12px;
+    margin-top: 1rem;
+    font-size: 1rem;
+    color: #5f0606;
+    font-weight: 500;
+    margin-bottom: 1rem;
+  }
+
+  .failure-box i {
+    font-size: 2rem;
+    color: #b91010;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  button {
+    display: block;
+    margin: 0.5rem auto;
+    width: 90%;
+    max-width: 150px;
+    background: linear-gradient(to right, var(--primary), var(--accent));
+    color: #fff;
+    border: none;
+    padding: 0.9rem;
+    border-radius: var(--radius);
+    font-size: 1rem;
+    cursor: pointer;
+    font-weight: 600;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 0.5rem;
+  }
+
+  button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
+  }
+</style>

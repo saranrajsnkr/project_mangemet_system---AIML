@@ -1,0 +1,279 @@
+{% extends 'base.html' %} {% load static %} {% block content %} {% comment %}
+<h1>Welcome, {{ name|upper }}!</h1>
+{% endcomment %}
+<h1 class="page-title" id="typing-text"></h1>
+
+<style>
+  /* Add blinking cursor */
+  #typing-text::after {
+    content: "|";
+    display: inline-block;
+    margin-left: 2px;
+    color: #007bff; /* cursor color */
+    animation: blink 0.7s infinite;
+  }
+
+  @keyframes blink {
+    0%,
+    50% {
+      opacity: 1;
+    }
+    50.01%,
+    100% {
+      opacity: 0;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const text = "Welcome, {{ name|upper }}!";
+    let i = 0;
+    const speed = 100;
+    const target = document.getElementById("typing-text");
+
+    function typeWriter() {
+      if (i < text.length) {
+        target.innerHTML += text.charAt(i);
+        i++;
+        setTimeout(typeWriter, speed);
+      }
+    }
+
+    typeWriter();
+  });
+</script>
+
+<p class="fade-in" style="margin-bottom: 1rem">
+  {{ email }} {% if is_admin %}
+  <span class="span" style="font-weight: 500">(Admin Access Enabled)</span>{% endif %}
+</p>
+
+{% if announcement.message1 and announcement.is_message1_active %}
+<div class="announcement-box">
+  <p class="announcement-text" style="color: {{ announcement.message1_color }}">
+    {% comment %} <span class="span">Announcement:</span>{% endcomment %}<i class="fa fa-bullhorn"></i>  {{ announcement.message1 }}
+  </p>
+</div>
+{% endif %}
+
+<style>
+  .fade-in {
+    opacity: 0;
+    animation: fadeIn 1s ease-in forwards;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(0px); /* slight upward motion */
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .span {
+    color: var(--text-dark) !important;
+    font-weight: 1000;
+    font-size: 1.1rem;
+  }
+  .announcement-box {
+    margin-top: 1.5rem;
+    background: rgba(37, 99, 235, 0.05);
+    border-left: 4px solid var(--primary);
+    padding: 1rem;
+    border-radius: var(--radius);
+    margin-bottom: 1.5rem;
+    text-align: center;
+    animation: fadeInUp 0.6s ease forwards;
+  }
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  .announcement-text {
+    font-weight: 600;
+    font-size: 1rem;
+  }
+</style>
+{% if is_admin %}
+<div class="card-grid">
+  <div class="card-wrapper">
+    <div class="card" onclick="window.location.href='/admin/internship/company/'">
+<i class="bi bi-buildings"></i>     <h3>Manage Companies</h3>
+      <p>
+        Add and manage companies offering internships to students.
+      </p>
+    </div>
+  </div>
+    <div class="card-wrapper">
+    <div class="card" onclick="window.location.href='/admin/internship/student/'">
+<i class="fa-solid fa-user-graduate"></i>      <h3>Manage Students</h3>
+      <p>Manage the student details and the enrollment details.</p>
+    </div>
+  </div>
+    <div class="card-wrapper">
+    <div class="card" onclick="window.location.href='/admin/internship/internshipapplication/'">
+<i class="bi bi-clipboard-check"></i>      <h3>Manage External Internship Applications</h3>
+      <p>
+        Review and manage external internship applications submitted by
+        students.
+      </p>
+    </div>
+  </div>
+  <div class="card-wrapper">
+    <div class="card" onclick="window.location.href='/admin/internship/announcement/'">
+      <i class="fa fa-bullhorn"></i>
+      <h3>Announcement</h3>
+      <p>
+        Create and manage announcements to keep users informed about important
+        updates.
+      </p>
+    </div>
+  </div>
+  <div class="card-wrapper">
+    <div class="card" onclick="window.location.href='/admin/internship/attendance/'">
+<i class="bi bi-calendar-check"></i>      <h3>Attendance</h3>
+      <p>
+        Manage the Students Attendance for the Internship Program.
+      </p>
+    </div>
+  </div>
+  <div class="card-wrapper">
+    <div class="card" onclick="window.location.href='/admin/internship/downloadable_files/'">
+      <i class="fa fa-cloud-download"></i>
+      <h3>Downloadable Files</h3>
+      <p>
+        Manage the files that students can download for internship purposes.
+      </p>
+    </div>
+  </div>
+  <div class="card-wrapper">
+    <div class="card" onclick="window.location.href='/admin/internship/sitesetting/'">
+      <i class="fa fa-cogs"></i>
+      <h3>Site Settings</h3>
+      <p>
+        Configure site-wide settings and preferences for the internship portal.
+      </p>
+    </div>
+  </div>
+  <div class="card-wrapper">
+    <div class="card" onclick="window.location.href='/admin/internship/userreport/'">
+<i class="bi bi-exclamation-triangle"></i>      <h3>Site problems</h3>
+      <p>
+        View and manage user-reported issues and feedback about the portal.
+      </p>
+    </div>
+  </div>
+    <div class="card-wrapper">
+    <div class="card" onclick="window.location.href='/admin'">
+<i class="fa-solid fa-screwdriver-wrench"></i>      <h3>Default Admin Panel</h3>
+      <p>
+        Access administrative dashboard to manage users, representatives, and
+        system settings.
+      </p>
+    </div>
+  </div>
+</div>
+<hr style="margin: 3rem 0" />
+{% endif %}
+<div class="card-grid">
+  <div class="card-wrapper">
+    <div
+      class="card"
+      onclick="window.location.href='{% url 'account_dashboard' %}'"
+    >
+      <i class="bi bi-person-circle"></i>
+      <h3>Profile & Dashboard</h3>
+      <p>
+        View your profile and get a quick overview of your activities in one
+        place.
+      </p>
+    </div>
+  </div>
+  <div class="card-wrapper">
+    <div class="card" onclick="window.location.href='{% url 'company_list' %}'">
+      <i class="bi bi-buildings"></i>
+      <h3>Available Internships</h3>
+      <p>
+        Explore active internship opportunities provided by the institution and
+        apply directly.
+      </p>
+    </div>
+  </div>
+  <div class="card-wrapper">
+    <div
+      class="card"
+      onclick="window.location.href='{% url 'check_application_status' %}'"
+    >
+      <i class="bi bi-clipboard-check"></i>
+      <h3>Check Status</h3>
+      <p>
+        Monitor the status of your submitted internship applications in real
+        time.
+      </p>
+    </div>
+  </div>
+  <div class="card-wrapper">
+    <div
+      class="card"
+      onclick="window.location.href='{% url 'cmpapply_form' %}'"
+    >
+<i class="fa-solid fa-file-circle-plus"></i>      <h3>External Internship Application</h3>
+      <p>
+        Submit external internship details for official approval from the
+        institution.
+      </p>
+    </div>
+  </div>
+
+  <div class="card-wrapper">
+    <div
+      class="card"
+      onclick="window.location.href='{% url 'downloadable_files' %}'"
+    >
+      <i class="fa fa-cloud-download"></i>
+      <h3>Download Documents</h3>
+      <p>
+        Students can download the necessary forms to fill up and submit as part
+        of the internship process.
+      </p>
+    </div>
+  </div>
+  <div class="card-wrapper">
+    <div
+      class="card"
+      onclick="window.location.href='{% url 'upload_documents' %}'"
+    >
+      <i class="bi bi-file-earmark-arrow-up"></i>
+      <h3>Upload Documents</h3>
+      <p>
+        Students can upload the required documents to attend the internship.
+      </p>
+    </div>
+  </div>
+  <div class="card-wrapper">
+    <div
+      class="card"
+      onclick="window.location.href='{% url 'submit_report' %}'"
+    >
+      <i class="bi bi-headset"></i>
+      <h3>Support</h3>
+      <p>
+        Report technical issues, share errors, or give feedback to improve this
+        portal.
+      </p>
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,591 @@
+{% extends 'base.html' %}
+{% block content %}
+
+        <style>
+
+:root {
+  --primary: #2563eb;
+  --primary-dark: #1d4ed8;
+  --secondary: #475569;
+  --accent: #0ea5e9;
+  --light: #f1f5f9;
+  --light-gray: #e2e8f0;
+  --success: #10b981;
+  --error: #ef4444;
+  --warning: #f59e0b;
+  --info: #3b82f6;
+  --border-radius: 12px;
+  --box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1),
+    0 8px 10px -6px rgba(0, 0, 0, 0.05);
+  --transition: all 0.3s ease;
+}
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--background);
+      color: var(--text-dark);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+/* Responsive Card */
+.custom-card {
+  background: white;
+  padding: 2rem 4rem;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  position: relative;
+  overflow: hidden;
+  margin: 1rem;
+  animation: fadeInUp 0.6s ease forwards;
+}
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.custom-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: linear-gradient(to right, var(--primary), var(--accent));
+}
+
+h2 {
+  font-family: "Poppins", sans-serif;
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--primary-dark);
+  text-align: center;
+  margin-bottom: 2rem;
+  position: relative;
+  padding-bottom: 1rem;
+}
+
+h2::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 4px;
+  background: linear-gradient(to right, var(--primary), var(--accent));
+  border-radius: 2px;
+}
+
+/* Form */
+form {
+  width: 100%;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="file"],
+input[type="url"],
+input[class="form-control"],
+textarea,
+select {
+  width: 100%;
+  padding: 1.2rem 1.5rem;
+  border: 2px solid var(--light-gray);
+  border-radius: 8px;
+  font-size: 1.05rem;
+  color: var(--secondary);
+  transition: var(--transition);
+  background-color: #f8fafc;
+  margin-bottom: 1.5rem;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.15);
+  background-color: white;
+}
+
+/* Labels if using input groups */
+.input-group {
+  position: relative;
+  margin-bottom: 2rem;
+}
+
+.input-group label {
+  position: absolute;
+  top: -10px;
+  left: 15px;
+  background: white;
+  padding: 0 8px;
+  font-size: 0.9rem;
+  color: var(--primary);
+  font-weight: 500;
+  z-index: 1;
+}
+
+/* Submit Button */
+button[type="submit"], .btn-primary {
+  display: inline-block;
+  width: auto;
+  background: linear-gradient(to right, var(--primary), var(--accent));
+  color: white;
+  padding: 0.9rem 1.4rem;
+  border: none;
+  border-radius: var(--border-radius);
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow: 0 6px 15px rgba(37, 99, 235, 0.35);
+  margin-top: 1rem;
+}
+
+.btn-secondary {
+  display: inline-block;
+  background: #e6edf9;
+  color: var(--secondary);
+  padding: 0.9rem 1.4rem;
+  border-radius: var(--border-radius);
+  border: 1px solid #dbeafe;
+  font-weight: 600;
+  margin-top: 1rem;
+}
+
+button[type="submit"]:hover, .btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(37, 99, 235, 0.45);
+}
+
+button[type="submit"]:active, .btn-primary:active {
+  transform: translateY(0);
+}
+
+/* File input button style */
+input[type="file"]::file-selector-button {
+  background: #edf2f7;
+  border: 1px solid #cbd5e0;
+  padding: 8px 16px;
+  border-radius: 4px;
+  margin-right: 15px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+input[type="file"]::file-selector-button:hover {
+  background: #e2e8f0;
+  cursor: pointer;
+}
+
+/* Footer */
+footer {
+  width: 100%;
+  background: #1e293b;
+  color: #cbd5e1;
+  padding: 2rem 0;
+  margin-top: auto;
+  text-align: center;
+}
+
+.footer-container {
+  padding: 0 2rem;
+  font-size: 1rem;
+}
+
+@media (max-width: 480px) {
+  h2 {
+    font-size: 1.6rem;
+  }
+
+  input,
+  textarea,
+  select,
+  button {
+    font-size: 1rem;
+    padding: 1rem 1.2rem;
+  }
+
+  .footer-container {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .custom-card {
+    background: white;
+    padding: 2rem 1rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    position: relative;
+    overflow: hidden;
+    margin: 1rem;
+  }
+}
+
+/* Stepper container */
+.stepper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin: 1rem 0 2rem 0;
+  flex-wrap: nowrap;
+}
+
+/* Each step */
+.step {
+  display: flex;
+  align-items: center;
+  position: relative;
+  flex: 1 1 0;
+  text-align: center;
+  flex-direction: column;
+}
+
+/* Circle */
+.step .circle {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 3px solid #bbb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  background: white;
+  color: #555;
+  transition: all 0.3s ease;
+  margin-bottom: 8px;
+}
+
+.step .label {
+  font-size: 0.85rem;
+  color: #64748b;
+}
+
+/* Active step */
+.step.active .circle {
+  border-color: var(--primary); /* pink border */
+  color: var(--primary); /* pink text */
+}
+
+/* Connector line - create pseudo line between steps using :before on middle steps */
+.step:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  top: 25px;
+  right: -50%;
+  width: 100%;
+  height: 3px;
+  background: #bbb;
+  z-index: -1;
+}
+
+.step.active::after {
+  background: var(--primary);
+}
+
+/* Section content */
+.form-section {
+  display: none;
+}
+.form-section.active {
+  display: block;
+}
+
+.form-navigation {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.8rem;
+  margin-top: 1rem;
+}
+
+        .alert-error {
+          color: #b91c1c;
+          font-weight: 600;
+          margin-top: 1rem;
+          margin-bottom: 1rem;
+        }
+
+      /* Paste the entire <style> block from your previous template here with no changes */
+      {{ block.super }}
+    </style>
+  <body style="padding-top: 0rem;">
+  <section class="body1">
+    <div class="custom-card">
+      <h2>Internship Application Form</h2>
+
+      <!-- Stepper -->
+      <div class="stepper" role="tablist" aria-label="Form steps">
+        <div class="step active" data-step="1" role="tab" aria-selected="true" aria-controls="step-1"><div class="circle">1</div><div class="label">Industry</div></div>
+        <div class="step" data-step="2" role="tab" aria-selected="false" aria-controls="step-2"><div class="circle">2</div><div class="label">Referral</div></div>
+        <div class="step" data-step="3" role="tab" aria-selected="false" aria-controls="step-3"><div class="circle">3</div><div class="label">Stipend</div></div>
+        <div class="step" data-step="4" role="tab" aria-selected="false" aria-controls="step-4"><div class="circle">4</div><div class="label">Student</div></div>
+      </div>
+
+      <form method="POST" novalidate>
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+
+        <!-- ================= INDUSTRY DETAILS (Step 1) ================= -->
+        <div class="form-section active" data-step="1" id="step-1">
+          <h3>Industry Details</h3>
+          {{ form.industry_name }} {{ form.industry_name.errors }}
+          {{ form.industry_location }} {{ form.industry_location.errors }}
+          {{ form.domain_of_work }} {{ form.domain_of_work.errors }}
+          {{ form.industry_category }} {{ form.industry_category.errors }}
+          {{ form.industry_website }} {{ form.industry_website.errors }}
+          {{ form.industry_email }} {{ form.industry_email.errors }}
+          {{ form.industry_phone_number }} {{ form.industry_phone_number.errors }}
+
+          <div class="form-navigation">
+            <div></div>
+            <button type="button" class="btn btn-primary next-btn">Next →</button>
+          </div>
+        </div>
+
+        <!-- ================= REFERRAL PERSON (Step 2) ================= -->
+        <div class="form-section" data-step="2" id="step-2">
+          <h3>Referral Person</h3>
+          {{ form.referal_person_name }} {{ form.referal_person_name.errors }}
+          {{ form.referal_person_designation }} {{ form.referal_person_designation.errors }}
+          {{ form.referal_person_email }} {{ form.referal_person_email.errors }}
+          {{ form.referal_person_phone_number }} {{ form.referal_person_phone_number.errors }}
+
+          <div class="form-navigation">
+            <button type="button" class="btn btn-secondary prev-btn">← Back</button>
+            <button type="button" class="btn btn-primary next-btn">Next →</button>
+          </div>
+        </div>
+
+        <!-- ================= STIPEND / FEES (Step 3) ================= -->
+        <div class="form-section" data-step="3" id="step-3">
+          <h3>Stipend / Fees</h3>
+          {{ form.stipend_provided }} {{ form.stipend_provided.errors }}
+          {{ form.stipend_amount }} {{ form.stipend_amount.errors }}
+          {{ form.fees_required }} {{ form.fees_required.errors }}
+          {{ form.fees_amount }} {{ form.fees_amount.errors }}
+
+          <div class="form-navigation">
+            <button type="button" class="btn btn-secondary prev-btn">← Back</button>
+            <button type="button" class="btn btn-primary next-btn">Next →</button>
+          </div>
+        </div>
+
+        <!-- ================= STUDENT DETAILS (Step 4) ================= -->
+        <div class="form-section" data-step="4" id="step-4">
+          <h3>Student Details</h3>
+
+          <!-- Student 1 (always visible) -->
+          <div class="student-section">
+            <h4>Main Student</h4>
+            {{ form.email }} {{ form.email.errors }}
+            {{ form.student_name }} {{ form.student_name.errors }}
+            {{ form.vtu_number }} {{ form.vtu_number.errors }}
+            {{ form.department }} {{ form.department.errors }}
+            {{ form.contact_number }} {{ form.contact_number.errors }}
+          </div>
+
+          <!-- Additional Students (hidden initially) -->
+          <div id="extra-students"></div>
+          <button type="button" id="add-student" class="btn btn-secondary" style="margin-top:1rem;">+ Add Student</button>
+
+
+
+            <div class="messages">
+      <div class="alert-error">
+          * Do not submit spam applications or misuse DIND websites. Doing so may lead to blacklisting from all Internship, Training, and Placement activities.  
+          If you are from another department, legal action may also be taken immediately.
+      </div>
+      </div>
+          <label>
+              <input type="checkbox" name="terms" required>
+        I have read and agree to the above terms, and I confirm that the details I have provided are correct. I understand that action may be taken against me if any information is found to be false.
+          </label> <br>
+          <!-- Add Student Button (only in student step) -->
+
+          <div class="form-navigation">
+            <button type="button" class="btn btn-secondary prev-btn">← Back</button>
+            <!-- The final action: Submit the form -->
+            <button type="button" class="btn btn-primary finish-btn">Submit Application</button>
+          </div>
+
+        </div>
+
+        <!-- Real submit kept hidden — finish-btn will trigger this to benefit standard form submit handling -->
+        <button type="submit" id="real-submit" style="display:none;">Submit</button>
+
+      </form>
+
+    </div>
+  </section>
+
+  <script>
+(function () {
+  // ====== STEP NAVIGATION & VALIDATION ======
+  const sections = Array.from(document.querySelectorAll('.form-section'));
+  const steps = Array.from(document.querySelectorAll('.step'));
+  const form = document.querySelector('form');
+  let currentIndex = 0;
+
+  function showStep(index) {
+    sections.forEach((s, i) => s.classList.toggle('active', i === index));
+    steps.forEach((s, i) => {
+      s.classList.toggle('active', i <= index);
+      s.setAttribute('aria-selected', i === index ? 'true' : 'false');
+    });
+    currentIndex = index;
+    const firstInput = sections[index].querySelector('input, select, textarea');
+    if (firstInput) firstInput.focus();
+  }
+
+function validateSection(section) {
+  let valid = true;
+  const controls = Array.from(section.querySelectorAll('input, select, textarea'))
+    .filter(el => el.type !== 'hidden' && el.type !== 'button' && el.type !== 'submit' && el.offsetParent !== null);
+
+  controls.forEach(input => {
+    const existingError = input.nextElementSibling && input.nextElementSibling.classList.contains('error-message');
+
+    // Handle checkboxes separately
+    if (input.type === "checkbox" && input.hasAttribute("required") && !input.checked) {
+      input.classList.add("error");
+      if (!existingError) {
+        input.insertAdjacentHTML('afterend', `<span class="error-message" style="color:red;font-size:0.85em;">You must agree before submitting</span>`);
+      }
+      valid = false;
+    }
+    // Normal input/textarea/select validation
+    else if (input.hasAttribute("required") && input.value.trim() === "") {
+      input.classList.add("error");
+      if (!existingError) {
+        input.insertAdjacentHTML('afterend', `<span class="error-message" style="color:red;font-size:0.85em;">This field is required</span>`);
+      }
+      valid = false;
+    } 
+    else {
+      input.classList.remove("error");
+      if (existingError) input.nextElementSibling.remove();
+    }
+  });
+
+  return valid;
+}
+
+
+  // Navigation buttons
+  document.addEventListener('click', function (e) {
+    if (e.target.matches('.next-btn')) {
+      if (!validateSection(sections[currentIndex])) return;
+      if (currentIndex < sections.length - 1) showStep(currentIndex + 1);
+    }
+
+    if (e.target.matches('.prev-btn')) {
+      if (currentIndex > 0) showStep(currentIndex - 1);
+    }
+
+    if (e.target.matches('.finish-btn')) {
+      if (!validateSection(sections[currentIndex])) return;
+      e.target.disabled = true;
+      e.target.innerText = 'Submitting...';
+      document.getElementById('real-submit').click();
+    }
+  });
+
+  // Allow clicking completed steps
+  steps.forEach((stepElem, idx) => {
+    stepElem.addEventListener('click', function () {
+      if (idx <= currentIndex) showStep(idx);
+    });
+  });
+
+  // ====== ADD / REMOVE STUDENT FIELDS ======
+  let studentCount = 1;
+  const maxStudents = {{ max_students|default:10 }};
+  const addStudentBtn = document.getElementById('add-student');
+  const extraStudentsDiv = document.getElementById('extra-students');
+
+  addStudentBtn.addEventListener('click', () => {
+    if (studentCount >= maxStudents) return;
+    studentCount++;
+    const i = studentCount;
+
+    let template = `
+      <div class="student-section" id="student-${i}" style="margin-top:1.2rem;">
+        <h4>Student ${i}</h4>
+        {{ form.student_2 }}
+        {{ form.vtu_number_2 }}
+        {{ form.department_stu_2 }}
+        {{ form.contact_number_stu_2 }}
+        <div style="margin-top:0.5rem;">
+          <button type="button" class="btn btn-secondary remove-student" data-index="${i}">Remove Student</button>
+        </div>
+      </div>
+    `;
+    template = template
+      .replace(/student_2/g, 'student_' + i)
+      .replace(/vtu_number_2/g, 'vtu_number_' + i)
+      .replace(/department_stu_2/g, 'department_stu_' + i)
+      .replace(/contact_number_stu_2/g, 'contact_number_stu_' + i);
+
+    extraStudentsDiv.insertAdjacentHTML('beforeend', template);
+
+    // Mark new fields required
+    document.querySelectorAll(`#student-${i} input, #student-${i} select`).forEach(input => input.required = true);
+
+    if (studentCount === maxStudents) {
+      addStudentBtn.disabled = true;
+      addStudentBtn.innerText = 'Max Students Added';
+    }
+  });
+
+  document.addEventListener('click', function (e) {
+    if (e.target.matches('.remove-student')) {
+      const idx = e.target.dataset.index;
+      const el = document.getElementById('student-' + idx);
+      if (el) el.remove();
+      studentCount = Math.max(1, studentCount - 1);
+      addStudentBtn.disabled = false;
+      addStudentBtn.innerText = '+ Add Student';
+    }
+  });
+
+  // Disable submit buttons on final submission (graceful fallback)
+  form.addEventListener('submit', function () {
+    const submitButtons = form.querySelectorAll('button[type="submit"], .finish-btn');
+    submitButtons.forEach(b => {
+      b.disabled = true;
+      if (b.classList.contains('finish-btn')) b.innerText = 'Submitting...';
+    });
+  });
+
+  // Prevent Enter from prematurely submitting
+  form.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') {
+      const active = document.activeElement;
+      if (active && active.tagName.toLowerCase() === 'textarea') return;
+      e.preventDefault();
+      const nextBtn = sections[currentIndex].querySelector('.next-btn') || document.querySelector('.finish-btn');
+      if (nextBtn) nextBtn.click();
+    }
+  });
+
+  // Initialize first step
+  showStep(0);
+})();
+</script>
+
+</body>
+{% endblock %}

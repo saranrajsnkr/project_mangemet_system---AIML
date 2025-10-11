@@ -1,0 +1,301 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+
+<section class="internship-section">
+  <h2 class="section-title">Available Internships</h2>
+
+  <!-- Action Buttons -->
+  <div class="action-buttons">
+    <button
+      onclick="window.location.href='{% url 'check_application_status' %}'"
+      class="action-btn"
+    >
+      <i class="fa-solid fa-clipboard-list"></i> Check Application Status
+    </button>
+    <button
+      onclick="window.location.href='{% url 'cmpapply_form' %}'"
+      class="action-btn"
+    >
+      <i class="fa-solid fa-briefcase"></i> External Internship Referral
+    </button>
+    <button
+      onclick="window.location.href='{% url 'cmpapply_form' %}'"
+      class="action-btn"
+    >
+      <i class="fa-solid fa-file-pen"></i> Update Report Status
+    </button>
+    <button
+      onclick="window.location.href='{% url 'account_dashboard' %}'"
+      class="action-btn"
+    >
+      <i class="fa-solid fa-user"></i> Dashboard
+    </button>
+  </div>
+
+  {% if has_vacancy %}
+  <div class="company-grid">
+    {% for company in companies %}
+    <div class="company-card" style="--i: {{ forloop.counter }}">
+      <div class="company-header">
+        <h3><i class="bi bi-buildings"></i> {{ company.name }}</h3>
+      </div>
+      <div class="company-details">
+        {% if company.cgpa %}
+        <p><strong>CGPA:</strong> {{ company.cgpa }}</p>
+        {% endif %}
+        <p><strong>Fees:</strong> {{ company.fees }}</p>
+        {% if company.duration %}
+        <p><strong>Duration:</strong> {{ company.duration }}</p>
+        {% endif %} {% if company.domain %}
+        <p><strong>Domain:</strong> {{ company.domain }}</p>
+        {% endif %} {% if company.skill_required %}
+        <p><strong>Required Skills:</strong> {{ company.skill_required }}</p>
+        {% endif %} {% if company.description %}
+        <p><strong>Description:</strong> {{ company.description }}</p>
+        {% endif %}
+        <p><strong>Location:</strong> {{ company.location }}</p>
+        <p><strong>Vacancies Available:</strong> {{ company.vacancy }}</p>
+      </div>
+      <a href="{% url 'apply_to_company' company.uid %}" class="apply-btn">
+        <i class="fa-solid fa-paper-plane"></i> Apply Now
+      </a>
+    </div>
+    {% endfor %}
+  </div>
+
+  {% elif announcement.message2 and announcement.is_message2_active %}
+  <div class="announcement-box">
+    <p
+      class="announcement-text"
+      style="color: {{ announcement.message2_color }}"
+    >
+      {{ announcement.message2 }}
+    </p>
+  </div>
+  {% else %}
+  <div class="no-vacancy">
+    <p class="no-vacancy-text">All companies are filled.</p>
+    <p id="enrollment-message" class="no-vacancy-text"></p>
+  </div>
+
+  <script>
+    function getFormattedDate(date) {
+      return date.toLocaleDateString("en-IN", {
+        day: "2-digit",
+        month: "long",
+        year: "numeric",
+      });
+    }
+    function updateEnrollmentMessage() {
+      const now = new Date();
+      const day = now.getDay();
+      const hour = now.getHours();
+      const msgEl = document.getElementById("enrollment-message");
+      let message = "",
+        displayDate;
+
+      if (day === 0) {
+        const tomorrow = new Date(now);
+        tomorrow.setDate(now.getDate() + 1);
+        displayDate = getFormattedDate(tomorrow);
+        message = `The next enrollment opens tomorrow (${displayDate}) from 10 AM to 1 PM.`;
+      } else if (day >= 1 && day <= 6) {
+        if (hour >= 10 && hour < 13) {
+          message = "Companies will be added soon.";
+        } else if (hour < 10) {
+          displayDate = getFormattedDate(now);
+          message = `The next enrollment opens today (${displayDate}) from 10 AM to 1 PM.`;
+        } else {
+          const tomorrow = new Date(now);
+          tomorrow.setDate(now.getDate() + 1);
+          displayDate = getFormattedDate(tomorrow);
+          message = `The next enrollment opens tomorrow (${displayDate}) from 10 AM to 1 PM.`;
+        }
+      }
+      msgEl.textContent = message;
+    }
+    updateEnrollmentMessage();
+  </script>
+  {% endif %}
+</section>
+
+<style>
+    .section-title {
+      font-family: "Poppins", sans-serif;
+      font-size: 2rem;
+      font-weight: 600;
+      text-align: center;
+      margin-bottom: 2rem;
+      color: var(--text-dark);
+      position: relative;
+      animation: fadein 1s ease forwards;
+    }
+    @keyframes fadein {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .section-title::after {
+      content: "";
+      position: absolute;
+      bottom: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(to right, var(--primary), var(--accent));
+      border-radius: 2px;
+    }
+
+    .action-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      margin-bottom: 2rem;
+      animation: fadeInUp 0.6s ease forwards;
+    }
+    .action-btn {
+      background: linear-gradient(to right, var(--primary), var(--accent));
+      color: #fff;
+      border: none;
+      border-radius: var(--radius);
+      padding: 0.8rem 1.5rem;
+      font-size: 0.95rem;
+      font-weight: 500;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .action-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 25px rgba(37, 99, 235, 0.45);
+    }
+
+.company-grid {
+  column-count: 3;
+  column-gap: 1.5rem;
+}
+
+.company-card {
+  display: inline-block;
+  width: 100%;
+  margin: 0 0 1.5rem;
+  break-inside: avoid;
+  background: var(--surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 1.8rem;
+  transition: var(--transition);
+
+  /* entry animation */
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+@media (max-width: 1200px) {
+  .company-grid { column-count: 2; }
+}
+
+@media (max-width: 768px) {
+  .company-grid { column-count: 1; }
+  .action-buttons {
+    display: none;
+  }
+}
+  {% comment %} .company-card:nth-child(1) { animation-delay: 0.1s; }
+  .company-card:nth-child(2) { animation-delay: 0.3s; }
+  .company-card:nth-child(3) { animation-delay: 0.5s; }
+  .company-card:nth-child(4) { animation-delay: 0.7s; } {% endcomment %}
+  /* … continues automatically if you want */
+  .company-card:nth-child(n) { animation-delay: calc(0.1s * var(--i, n)); }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+    .company-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+    }
+    .company-header h3 {
+      font-family: "Poppins", sans-serif;
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+    .company-details p {
+      margin-bottom: 0.6rem;
+      font-size: 1rem;
+    }
+    .company-details p strong {
+      color: var(--text-dark);
+      font-weight: 600;
+    }
+    .apply-btn {
+      display: inline-block;   /* 👈 add this */
+      margin-top: auto;
+      align-self: flex-start;
+      padding: 0.7rem 1.6rem;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: #fff;
+      background: linear-gradient(to right, var(--primary), var(--accent));
+      border-radius: var(--radius);
+      text-decoration: none;
+      transition: var(--transition);
+      box-shadow: 0 6px 15px rgba(37, 99, 235, 0.35);
+    }
+    .apply-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 25px rgba(37, 99, 235, 0.45);
+    }
+
+    .no-vacancy-text {
+      text-align: center;
+      color: red;
+      font-weight: bold;
+      margin: 1rem 0;
+    }
+
+    .announcement-box {
+      background: rgba(37, 99, 235, 0.05);
+      border-left: 4px solid var(--primary);
+      padding: 1rem;
+      border-radius: var(--radius);
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+    .announcement-text {
+      font-weight: 600;
+      font-size: 1rem;
+    }
+
+    @media (max-width: 768px) {
+      .company-grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      }
+      .action-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+</style>
+
+{% endblock %}

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Site Under Maintenance</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #E3F2FD, #BBDEFB);
+      color: #212529;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      text-align: center;
+      overflow-x: hidden;
+      padding: 20px;
+      position: relative;
+    }
+
+    .background-shapes {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: -1;
+    }
+    .shape {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.08;
+      animation: float 12s ease-in-out infinite;
+    }
+    .shape-1 { width: 200px; height: 200px; background: #007BFF; top: 8%; left: 6%; }
+    .shape-2 { width: 150px; height: 150px; background: #4CAF50; bottom: 12%; right: 8%; animation-duration: 15s; }
+    .shape-3 { width: 100px; height: 100px; background: #FF5722; top: 42%; right: 15%; animation-duration: 10s; }
+
+    .card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 40px 30px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      max-width: 500px;
+      width: 90%;
+      border-top: 6px solid #007BFF;
+      transition: transform 0.3s ease;
+    }
+    .card:hover { transform: translateY(-5px); }
+
+    h1 {
+      font-size: 2.4rem;
+      color: #007BFF;
+      margin-bottom: 15px;
+      position: relative;
+    }
+    h1::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px; height: 4px;
+      background: linear-gradient(90deg, #007BFF, #4CAF50);
+      border-radius: 2px;
+    }
+    p {
+      font-size: 1.2rem;
+      color: #424242;
+      margin: 20px 0;
+      line-height: 1.6;
+    }
+
+    .svg-box {
+      width: 130px;
+      margin: 0 auto 25px;
+      animation: pulse 2s infinite;
+    }
+
+    .progress-bar {
+      height: 8px;
+      background: #e0e0e0;
+      border-radius: 5px;
+      overflow: hidden;
+      margin: 30px 0;
+    }
+    .progress {
+      height: 100%;
+      width: 70%;
+      background: linear-gradient(90deg, #007BFF, #4CAF50);
+      animation: progress-pulse 2s infinite;
+    }
+
+    .btn {
+      padding: 12px 25px;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 1rem;
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.3s ease;
+    }
+    .btn-primary {
+      background: #007BFF;
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(0,123,255,0.3);
+    }
+    .btn-primary:hover {
+      background: #0056b3;
+      transform: translateY(-2px);
+    }
+
+    @keyframes pulse {
+      0%,100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+    @keyframes float {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+    @keyframes progress-pulse {
+      0%,100% { opacity: 0.8; }
+      50% { opacity: 1; }
+    }
+
+    @media (max-width: 768px) {
+      h1 { font-size: 2rem; }
+      p { font-size: 1rem; }
+      .card { padding: 30px 20px; }
+    }
+    @media (max-width: 480px) {
+      .svg-box { width: 100px; }
+      h1 { font-size: 1.8rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="background-shapes">
+    <div class="shape shape-1"></div>
+    <div class="shape shape-2"></div>
+    <div class="shape shape-3"></div>
+  </div>
+
+  <div class="card">
+    <div class="svg-box">
+      <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="32" cy="32" r="30" fill="#007BFF" opacity="0.9"/>
+        <path d="M32 20v16M32 44h0" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
+      </svg>
+    </div>
+
+    <h1>Site Under Maintenance</h1>
+    <p>We're making improvements to give you a better experience.<br> Please check back soon!</p>
+
+    {% comment %} <div class="progress-bar">
+      <div class="progress"></div>
+    </div> {% endcomment %}
+
+    <a href="/" class="btn btn-primary">Back to Home</a>
+  </div>
+</body>
+</html>

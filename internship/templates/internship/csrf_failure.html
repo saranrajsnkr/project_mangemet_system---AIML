@@ -1,0 +1,161 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block navbar %}{% endblock %}
+
+{% block content %}
+<div class="login-container">
+  <!-- Logos -->
+  <div class="logos">
+    <img src="{% static 'images/VELTECH.png' %}" alt="VelTech Logo">
+
+  </div>
+
+  <!-- Title -->
+  <h2>Internship Management System</h2>
+  <h3><i class="bi bi-shield-lock"></i> Security Verification Failed</h3>
+
+  <!-- Success Message -->
+  <div class="failure-box">
+    <i class="fa fa-times-circle"></i>
+<p>
+  Attendance could not be saved successfully!<br>
+  This error may occur if you access both the IMS (Internship Management System) main page 
+  and the Attendance page at the same time.<br>
+  Please use only one page at a time and try again.
+</p>
+</div>
+<button onclick="window.location.href='{% url 'company_login' %}'"><i class="fa fa-redo-alt"></i> Try Again</button>
+
+  <!-- Footer -->
+  <div class="footer-text">
+  </div>
+</div>
+
+<style>
+  .login-container {
+    background: var(--surface, rgba(255, 255, 255, 0.85));
+    backdrop-filter: blur(12px) saturate(180%);
+    padding: 2.5rem;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    margin: 2rem auto;
+    animation: fadeUp 0.8s ease forwards;
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  
+      /* Logos */
+      .logos {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+      }
+
+      .logos img {
+        height: 40px;
+        max-width: 100%;
+      }
+
+      .login-container h2 {
+        font-family: "Poppins", sans-serif;
+        font-size: 1.5rem;
+        margin-bottom: 0.3rem;
+        color: var(--text-dark);
+      }
+
+      .login-container h3 {
+        font-family: "Poppins", sans-serif;
+        font-size: 1rem;
+        margin-bottom: 1.5rem;
+        color: var(--text-muted);
+      }
+
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .logos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 18px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+
+  .login-container h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: #0f172a;
+  }
+
+  .login-container h3 {
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+    color: #334155;
+    font-weight: 600;
+  }
+
+  .failure-box {
+    background: #fdececff;
+    border: 1px solid #b91010ff;
+    padding: 1.2rem;
+    border-radius: 12px;
+    margin-top: 1rem;
+    font-size: 1rem;
+    color: #5f0606ff;
+    font-weight: 500;
+    margin-bottom: 1rem;
+  }
+
+  .failure-box i {
+    font-size: 2rem;
+    color: #b91010ff;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  .footer-text {
+    margin-top: 1.5rem;
+    font-size: 0.9rem;
+    color: #64748b;
+  }
+
+        button {
+        width: 90%;
+        max-width: 120px;
+      }
+
+      button {
+          display: block;
+  margin: 0.5rem auto; /* centers horizontally */
+        background: linear-gradient(to right, var(--primary), var(--accent));
+        color: #fff;
+        border: none;
+        padding: 0.9rem;
+        border-radius: var(--radius);
+        font-size: 1rem;
+        cursor: pointer;
+        font-weight: 600;
+        transition: var(--transition);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        margin-top: 0.5rem;
+      }
+
+      button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
+      }
+</style>
+{% endblock %}

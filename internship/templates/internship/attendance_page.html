@@ -1,0 +1,141 @@
+{% extends "base.html" %} 
+{% load static %}
+{% block navbar %}{% endblock %}
+
+{% block content %}
+<div class="card-wrapper1">
+  <div class="card">
+    <h2 style="margin-bottom: 1rem; font-family: 'Poppins', sans-serif; font-weight: 600; color: var(--primary);">
+      Attendance for {{ company.name }} <br>
+      <small style="font-size: 0.9rem; color: var(--text-muted);">Date: {{ today }}</small>
+    </h2>
+
+    <form method="post" id="attendance-form">
+      {% csrf_token %}
+      <div style="margin-bottom: 1rem;">
+    <label for="attendance-date" style="font-weight: 600; color: var(--primary); margin-right: 10px;">
+      Select Date:
+    </label>
+    <input type="date" id="attendance-date" name="attendance_date"
+           value="{{ today|date:'Y-m-d' }}"
+           style="padding: 8px; border: 1px solid #ddd; border-radius: var(--radius);">
+  </div>
+      <!-- Select All Controls -->
+      <div style="display: flex; justify-content: flex-end; gap: 10px; margin-bottom: 1rem;">
+        <button type="button" id="select-all-present"
+          style="background: #16a34a; color: #fff; padding: 8px 16px; border: none; border-radius: var(--radius); cursor: pointer; font-weight: 600; box-shadow: var(--shadow);">
+           Mark All Present
+        </button>
+        <button type="button" id="select-all-absent"
+          style="background: #dc2626; color: #fff; padding: 8px 16px; border: none; border-radius: var(--radius); cursor: pointer; font-weight: 600; box-shadow: var(--shadow);">
+           Mark All Absent
+        </button>
+      </div>
+
+      <div class="table-responsive">
+        <table style="width: 100%; border-collapse: collapse; margin-bottom: 1.5rem; border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow);">
+          <thead>
+            <tr style="background: linear-gradient(135deg, var(--primary), var(--accent)); color: #fff; text-align: center;">
+              <th style="padding: 12px;">Student</th>
+              <th style="padding: 12px;">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for student in students %}
+            <tr style="text-align: center; background: {% cycle '#ffffff' '#f9fafb' %}; transition: var(--transition);">
+              <td style="padding: 12px; font-weight: 500; color: var(--text-dark);">
+                <i class="fa-solid fa-user-graduate" style="color: var(--primary); margin-right: 6px;"></i>
+                {{ student.name }}
+              </td>
+              <td style="padding: 12px;">
+                <label style="margin-right: 15px; cursor: pointer;">
+                  <input type="radio" name="attendance_{{ student.id }}" value="Present"
+                    {% for record in attendance_records %}
+                      {% if record.student.id == student.id and record.status == "Present" %}
+                        checked
+                      {% endif %}
+                    {% endfor %}>
+                   Present
+                </label>
+                <label style="cursor: pointer;">
+                  <input type="radio" name="attendance_{{ student.id }}" value="Absent"
+                    {% for record in attendance_records %}
+                      {% if record.student.id == student.id and record.status == "Absent" %}
+                        checked
+                      {% endif %}
+                    {% endfor %}>
+                   Absent
+                </label>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+<button type="submit" >
+  {% comment %} style="display: flex; align-items: center; justify-content: center; gap: 12px; 
+         margin: 20px auto; background: linear-gradient(135deg, var(--primary), var(--accent)); 
+         color: #fff; padding: 14px 28px; border: none; border-radius: 50px; 
+         font-size: 1rem; font-weight: 600; cursor: pointer; 
+         box-shadow: var(--shadow); transition: var(--transition);"> {% endcomment %}
+  Save Attendance
+</button>
+
+    </form>
+  </div>
+</div>
+
+<!-- Script to handle select all -->
+<script>
+  document.getElementById("select-all-present").addEventListener("click", function () {
+    document.querySelectorAll("input[type='radio'][value='Present']").forEach(radio => {
+      radio.checked = true;
+    });
+  });
+
+  document.getElementById("select-all-absent").addEventListener("click", function () {
+    document.querySelectorAll("input[type='radio'][value='Absent']").forEach(radio => {
+      radio.checked = true;
+    });
+  });
+</script>
+
+
+<style>
+    .card-wrapper1 {
+    animation: fadeIn 0.8s ease forwards;
+    }
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Button */
+button[type="submit"] {
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  color: #fff;
+  padding: 1rem;
+  border: none;
+  border-radius: var(--radius);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow: 0 8px 18px rgba(37, 99, 235, 0.3);
+}
+
+button[type="submit"]:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(37, 99, 235, 0.4);
+}
+
+</style>
+</div>
+
+{% endblock %}

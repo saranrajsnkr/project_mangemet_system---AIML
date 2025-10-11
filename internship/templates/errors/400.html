@@ -1,0 +1,27 @@
+    {% extends "base.html" %}
+{% load static %}
+
+{% block navbar %}{% endblock %}
+
+{% block content %}
+<div class="login-container">
+  <div class="logos">
+    <img src="{% static 'images/VELTECH.png' %}" alt="VelTech Logo">
+  </div>
+
+  <h2>Internship Management System</h2>
+  <h3><i class="bi bi-exclamation-circle"></i> Bad Request</h3>
+
+  <div class="failure-box">
+    <i class="fa fa-times-circle"></i>
+    <p>
+      The request could not be understood by the server.<br>
+      Please check the request and try again.
+    </p>
+  </div>
+  <button onclick="window.location.href='/'">
+    <i class="fa fa-home"></i> Go Home
+  </button>
+</div>
+{% include "errors/error_style.html" %}
+{% endblock %}
