@@ -551,7 +551,7 @@ button,
     <nav class="navbar" style="z-index: 1;">
         <!-- Desktop logo -->
         <a href="/" class="nav-logo nav-icon desktop-logo {% if path == '/' %}act{% endif %}">
-          <i class="fa-solid fa-graduation-cap"></i> IMS
+          <i class="fa-solid fa-graduation-cap"></i> PMS
         </a>
 
         <!-- Mobile logo -->
@@ -575,12 +575,6 @@ button,
 
       <ul class="nav-links" id="navMenu">
         <li><a href="/" class="nav-icon {% if path == '/' %}active{% endif %}">Home</a></li>
-        <li><a href="{% url 'company_list' %}" class="nav-icon {% if request.resolver_match.url_name == 'company_list' or request.resolver_match.url_name == 'apply_to_company' %}active{% endif %}">Internships</a></li>
-        <li>
-          <a href="{% url 'check_application_status' %}" class="nav-icon {% if request.resolver_match.url_name == 'check_application_status' %}active{% endif %}">Application Status</a>
-        </li>
-        <li><a href="{% url 'cmpapply_form' %}" class="nav-icon {% if request.resolver_match.url_name == 'cmpapply_form' %}active{% endif %}">External Application</a></li>
-        <li><a href="{% url 'submit_report' %}" class="nav-icon {% if request.resolver_match.url_name == 'submit_report' %}active{% endif %}">Support</a></li>
         <li><a href="{% url 'account_dashboard' %}" class="nav-icon {% if request.resolver_match.url_name == 'account_dashboard' %}active{% endif %}">Accounts & Logout</a></li>
       </ul>
       <div class="hamburger" id="hamburger">

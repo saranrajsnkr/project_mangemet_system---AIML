@@ -28,9 +28,9 @@
     </div>
 
     <div class="actions">
-      <a href="{% url 'company_list' %}" class="action-btn primary">
+      {% comment %} <a href="{% url 'company_list' %}" class="action-btn primary">
         <i class="fa-solid fa-briefcase" style="font-weight: bold"></i> Apply for Internship
-      </a>
+      </a> {% endcomment %}
       <a href="{% url 'account_logout' %}" class="action-btn secondary" style="font-weight: bold">
         <i class="fas fa-sign-out-alt"></i> Sign Out
       </a>
@@ -93,91 +93,6 @@
       </div>
   </div>
   {% endif %}
-</div>
-
-
-
-
-<div class="attendance-section">
-  <h2>Your Attendance Records</h2>
-  <div class="attendance-card">
-    <table>
-      <thead>
-        <tr>
-          <th>Date</th>
-          <th>Company</th>
-          <th>Status</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for record in attendance_records %}
-        <tr>
-          <td>{{ record.date }}</td>
-          <td>{{ record.company.name }}</td>
-<td class="{% if record.status == 'Present' %}status-present{% else %}status-absent{% endif %}">
-    {{ record.status }}
-</td>
-        </tr>
-        {% empty %}
-        <tr>
-          <td colspan="3">No attendance records found.</td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  </div>
-</div>
-
-<div class="card-grid">
-  <div class="card-wrapper">
-    <div class="card" onclick="window.location.href='{% url 'company_list' %}'">
-      <i class="fa-solid fa-briefcase"></i>
-      <h3>Available Internships</h3>
-      <p>
-        Explore active internship opportunities provided by the institution and
-        apply directly.
-      </p>
-    </div>
-  </div>
-  <div class="card-wrapper">
-    <div
-      class="card"
-      onclick="window.location.href='{% url 'check_application_status' %}'"
-    >
-      <i class="fa-solid fa-file-circle-check"></i>
-      <h3>Check Status</h3>
-      <p>
-        Monitor the status of your submitted internship applications in real
-        time.
-      </p>
-    </div>
-  </div>
-  <div class="card-wrapper">
-    <div
-      class="card"
-      onclick="window.location.href='{% url 'cmpapply_form' %}'"
-    >
-      <i class="fa-solid fa-user-plus"></i>
-      <h3>External Internship Application</h3>
-      <p>
-        Submit external internship details for official approval from the
-        institution.
-      </p>
-    </div>
-  </div>
-  <div class="card-wrapper">
-    <div
-      class="card"
-      onclick="window.location.href='{% url 'submit_report' %}'"
-    >
-      <i class="bi bi-headset"></i>
-      <h3>Support</h3>
-      <p>
-        Report technical issues, share errors, or give feedback to improve this
-        portal.
-      </p>
-    </div>
-  </div>
 </div>
 <style>
     .dashboard-container {
